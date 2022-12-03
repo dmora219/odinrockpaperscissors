@@ -1,7 +1,8 @@
 function getcomputerchoice() {
-   let random = Math.floor(Math.random() * 3);
+   
+   let random = Math.floor(Math.random() * 3);//function to pick a random number out of the 3 choices
 
-   switch (random) {
+   switch (random) {//switch method! alternative to an array
       case 0:
          return "rock";
          break;
@@ -15,7 +16,7 @@ function getcomputerchoice() {
 
 }
    
-function getuserinput() {
+function getuserinput() { //prompts user to choose between rock paper scissors
    let userinput = prompt('rock paper scissors SHOOT!')
    if (userinput.toLowerCase() === 'rock' || userinput === 'paper' || userinput === 'scissors') {
       return userinput
@@ -30,7 +31,7 @@ function playround(getuserinput, getcomputerchoice) {
       playerscore++;
          return 'YOU WIN!'
    } else if (getuserinput === 'paper' && getcomputerchoice === 'rock') {
-      playerscore++;
+      playerscore++; //adds 1 to the player score 
       return 'YOU WIN!'
    } else if (getuserinput === 'scissors' && getcomputerchoice === 'paper') {
       playerscore++;
@@ -38,22 +39,22 @@ function playround(getuserinput, getcomputerchoice) {
    } else if (getuserinput === getcomputerchoice) {
       return "TIE!"
    } else {
-      computerscore++;
+      computerscore++; //adds 1 to the computer score
       return 'COMPUTER WINS'
    }
 }
 
-function game() {
+function game() { //loops for 5 rounds 
    for (let i = 0; i < 5; i++) { 
       let userinput = getuserinput();
       let computerchoice = getcomputerchoice();
-       console.log(playround(userinput,computerchoice));
+       console.log(playround(userinput,computerchoice)); // runs the playround function with 2 parameters
    }
 }
 
-game();
+game(); // calls the game function to run 
 
-function results() {
+function results() { // counts up the score 
    if (playerscore < computerscore) {
       return 'COMPUTERS RULE!';
    } else if (playerscore > computerscore) {
@@ -65,10 +66,6 @@ function results() {
 let resultplayerscore = 'player score: ' + playerscore;
 let resultcomputer = 'computers score: ' + computerscore;
 
-console.log('playerscore: ' + playerscore);
-console.log('computerscore: ' + computerscore);
-console.log(results());
-
 alert(resultplayerscore);
-alert(resultcomputer);
+alert(resultcomputer);// puts alerts on the screen to show the winner and scores
 alert(results());
