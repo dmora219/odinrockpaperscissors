@@ -62,6 +62,13 @@ function results() {
       return 'lets play again.'
    }
 }
+let resultplayerscore = 'player score: ' + playerscore;
+let resultcomputer = 'computers score: ' + computerscore;
+
 console.log('playerscore: ' + playerscore);
 console.log('computerscore: ' + computerscore);
 console.log(results());
+
+alert(resultplayerscore);
+alert(resultcomputer);
+alert(results());
