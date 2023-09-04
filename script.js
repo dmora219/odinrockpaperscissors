@@ -1,3 +1,14 @@
+const rock = document.querySelector('.rock');
+const paper = document.querySelector('.paper');
+const scissors = document.querySelector('.scissors');
+const newGame = document.querySelector('.newGame')
+const div = document.querySelector('.playerComputerScore')
+const playerP = document.createElement('p');
+const computerP = document.createElement('p');
+let playerscore = 0;
+let computerscore = 0;
+
+let endgame = false;
 function getcomputerchoice() {
    
    let random = Math.floor(Math.random() * 3);//function to pick a random number out of the 3 choices
@@ -16,56 +27,78 @@ function getcomputerchoice() {
 
 }
    
-function getuserinput() { //prompts user to choose between rock paper scissors
-   let userinput = prompt('rock paper scissors SHOOT!')
-   if (userinput.toLowerCase() === 'rock' || userinput === 'paper' || userinput === 'scissors') {
-      return userinput
-   } else {
-      return 'error';
-   }
-}
-let playerscore = 0;
-let computerscore = 0;
+
 function playround(getuserinput, getcomputerchoice) {
    if (getuserinput === 'rock' && getcomputerchoice === 'scissors') {
       playerscore++;
-         return 'YOU WIN!'
+         div.textContent = 'YOU WIN!'
    } else if (getuserinput === 'paper' && getcomputerchoice === 'rock') {
       playerscore++; //adds 1 to the player score 
-      return 'YOU WIN!'
+      div.textContent = 'YOU WIN!'
    } else if (getuserinput === 'scissors' && getcomputerchoice === 'paper') {
       playerscore++;
-      return 'YOU WIN'
+      div.textContent = 'YOU WIN'
    } else if (getuserinput === getcomputerchoice) {
-      return "TIE!"
+      div.textContent = "TIE!"
    } else {
       computerscore++; //adds 1 to the computer score
-      return 'COMPUTER WINS'
+      div.textContent = 'COMPUTER WINS'
    }
+   endGame();
 }
 
-function game() { //loops for 5 rounds 
-   for (let i = 0; i < 5; i++) { 
-      let userinput = getuserinput();
-      let computerchoice = getcomputerchoice();
-       console.log(playround(userinput,computerchoice)); // runs the playround function with 2 parameters
-   }
-}
 
-game(); // calls the game function to run 
-
-function results() { // counts up the score 
-   if (playerscore < computerscore) {
-      return 'COMPUTERS RULE!';
-   } else if (playerscore > computerscore) {
-      return 'player is the winner!!'
+function endGame() {
+   if (playerscore >= 5) {
+      div.textContent = 'Game Over you win';
+      endgame = true;
+   } else if (computerscore >= 5) {
+      div.textContent = 'Game Over Computer Wins';
+      endgame = true;
    } else {
-      return 'lets play again.'
+      div.textContent = 'Tie Start New Game';
+      endgame = true;
    }
 }
-let resultplayerscore = 'player score: ' + playerscore;
-let resultcomputer = 'computers score: ' + computerscore;
+function updateScore() {
+   playerP.innerHTML = `Player Score Is: <b>${playerscore}</b>`
+   computerP.innerHTML = `computer Score Is: <b>${computerscore}</b>`
+   div.appendChild(playerP)
+   div.append(computerP)
+}
+function startNewGame() {
+   if (endgame) {
+      playerscore = 0;
+      computerscore = 0;
+   }
+   updateScore()
+}
+let userChoice = ''
+function cleanCode() {
+   const computerChoice = getcomputerchoice()
+   const playRound = playround(userChoice, computerChoice)
+   return playRound;
+}
+rock.addEventListener('click', function () {
+   userChoice = 'rock';
+   cleanCode()
+   updateScore()
+   //endGame()
+   })
+paper.addEventListener('click', function () {   
+   userChoice = 'paper';
+   cleanCode()
+   updateScore()
+   //endGame()
+   
+})
+scissors.addEventListener('click', function () {
+   userChoice = 'rock';
+   cleanCode()
+   updateScore()
+   //endGame()
+})
+endGame();
+newGame.addEventListener('click',startNewGame)
 
-alert(resultplayerscore);
-alert(resultcomputer);// puts alerts on the screen to show the winner and scores
-alert(results());
+
